@@ -1,0 +1,117 @@
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>Unibo Courses Query Builder</title>
+        <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    </head>
+    <body>
+        <h1>Unibo Courses Query Builder</h1>
+        <div id="app">
+            <div id="parameters">
+                <div>
+                    <label for="nome">Nome insegnamento/insegnante/idk</label>
+                    <input type="text" name="nome" ref="nome">
+                    <button @click="addToQuery('descrizioneMateria','nome')">+</button>
+                </div>
+                <div>
+                    <label for="anno">Anno Accademico</label>
+                    <input name="anno" ref="anno" type="number" v-model="year" min="2004" step="1">
+                    <button @click="addToQuery('annoAccademico','anno')">+</button>
+                </div>
+                <div>
+                    <label for="ambito">Ambito</label>
+                    <select name="ambito" ref="ambito">
+                        <option value=""></option>
+                        <option value="1">Economia e management</option>
+                        <option value="2">Farmacia e biotecnologie</option>
+                        <option value="3">Giurisprudenza</option>
+                        <option value="4">Ingegneria e architettura</option>
+                        <option value="5">Lingue e Letterature, Traduzione e Interpretazione</option>
+                        <option value="6">Medicina e Chirurgia</option>
+                        <option value="7">Medicina veterinaria</option>
+                        <option value="8">Psicologia</option>
+                        <option value="9">Scienze</option>
+                        <option value="10">Scienze agro-alimentari</option>
+                        <option value="11">Scienze dell'educazione e della formazione</option>
+                        <option value="12">Scienze motorie</option>
+                        <option value="13">Scienze politiche</option>
+                        <option value="14">Scienze Statistiche</option>
+                        <option value="15">Sociologia</option>
+                        <option value="16">Studi umanistici</option>
+                    </select>
+                    <button @click="addToQuery('codiceAmbito','ambito')">+</button>
+                </div>
+                <div>
+                    <label for="campus">Campus</label>
+                    <select name="campus" ref="campus">
+                        <option value="">Tutti</option>
+                        <option value="bologna">Campus di Bologna</option>
+                        <option value="cesena">Campus di Cesena</option>
+                        <option value="forli">Campus di Forlì</option>
+                        <option value="ravenna">Campus di Ravenna</option>
+                        <option value="rimini">Campus di Rimini</option>
+                    </select>
+                    <button @click="addToQuery('codiceCampus','campus')">+</button>
+                </div>
+                <div>
+                    <label for="laurea">Tipologia del corso</label>
+                    <select name="laurea" ref="laurea">
+                        <option value="">Tutte</option>
+                        <option value="l">Laurea</option>
+                        <option value="lm">Laurea Magistrale</option>
+                        <option value="lmcu">Laurea Magistrale a Ciclo Unico</option>
+                    </select>
+                    <button @click="addToQuery('codiceTipoCorso','laurea')">+</button>
+                </div>
+                <div>
+                    <label for="lingua">Lingua dell'insegnamento</label>
+                    <select name="lingua" ref="lingua">
+                        <option value=""></option>
+                        <option value="inglese">Inglese</option>
+                        <option value="francese">Francese</option>
+                        <option value="tedesco">Tedesco</option>
+                        <option value="spagnolo">Spagnolo</option>
+                        <option value="russo">Russo</option>
+                        <option value="altra">Altre Lingue</option>
+                    </select>
+                    <button @click="addToQuery('linguaInsegnamento','lingua')">+</button> 
+                </div>
+                <div>
+                    <label for="codice">Codice dell'Insegnamento</label>
+                    <input name="codice" ref="codice" type="text">
+                    <button @click="addToQuery('codiceMateria','codice')">+</button> 
+                </div>
+                <div>
+                    <label for="ssd">Settore Scientifico Disciplinare (SSD)</label>
+                    <input name="ssd" ref="ssd" type="text">
+                    <button @click="addToQuery('codiceSSD','ssd')">+</button> 
+                </div>
+            </div>
+            <div>
+                <a :href="query" target="_blank">{{ query }}</a>
+                <button @click="resetQuery">Reset</button>
+            </div>
+        </div>
+
+        <script>
+            var default_query = "https://www.unibo.it/it/didattica/insegnamenti?search=True"
+            var current_year = new Date().getFullYear()
+            var app = new Vue({
+                el: '#app',
+                data: {
+                    query: default_query,
+                    year: current_year 
+                },
+                methods: {
+                    addToQuery: function(field, ref){
+                        let value = this.$refs[ref].value;
+                        this.query += `&${field}=${value.replace(/ /g, "+")}`
+                    },
+                    resetQuery: function(){
+                        this.query = default_query;
+                    }
+                }
+            });        
+        </script>
+    </body>
+</html>

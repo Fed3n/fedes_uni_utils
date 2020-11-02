@@ -1,0 +1,18 @@
+body {
+    font-family: sans-serif;
+}
+#app {
+    width: 90%;
+    text-align: center;
+    font-size: 20px;
+}
+#right-count {
+    color: green;
+}
+#wrong-count {
+    color: red;
+}
+.code {
+    font-family: "Courier Std";
+    font-size: 24px;
+}

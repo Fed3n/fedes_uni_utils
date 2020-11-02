@@ -1,0 +1,29 @@
+<html>
+    <head>
+        <title>Hexadecimal and Binary conversion training</title>
+        <meta charset="utf-8">
+        <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+        <link rel="stylesheet" href="tutorial.css">
+    </head>
+    <body>
+        <div id="app">
+            <h1>Conversion training!</h1>
+            <div id="mode-switch">
+                <button :disabled="hex_to_bin" v-on:click="switchMode">Hex to Bin</button>
+                <button :disabled="!hex_to_bin" v-on:click="switchMode">Bin to Hex</button>
+            </div>
+            <p><span>{{ total_counter }}</span> <span id="right-count">{{ right_counter }}</span> <span id="wrong-count">{{ wrong_counter }}</span></p>
+            <p class="code">{{ current_val }}</p>
+
+            <form v-on:submit.prevent="submitAns">
+                <input type="text" ref="ans_field">
+                <input type="submit" value="Submit">
+            </form>
+
+            <label for="n-bytes">Number of Bytes</label>
+            <input name="n-bytes" type="number" step="1" min="1" v-on:input="reset" v-model="bytes">
+            <button v-on:click="restart">START</button>
+        </div>
+        <script type="text/javascript" src="tutorial.js"></script>
+     </body>
+</html>
